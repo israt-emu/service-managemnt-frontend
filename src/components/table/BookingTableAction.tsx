@@ -4,18 +4,18 @@ import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, 
 import {Button} from "../ui/button";
 import {DotsHorizontalIcon} from "@radix-ui/react-icons";
 import Link from "next/link";
-import {useDeleteServiceMutation} from "@/redux/features/services/serviceApi";
+import {useDeleteBookingMutation} from "@/redux/features/bookings/bookingApi";
 
 //
 export type TableProps = {
   id: string;
 };
-const TableAction = ({id}: TableProps) => {
+const BookingTableAction = ({id}: TableProps) => {
   //delete service
-  const [deleteService, {data: deleteData, isSuccess, isError}] = useDeleteServiceMutation();
-  const handleDeleteService = (id: string) => {
+  const [deleteBooking, {data: deleteData, isSuccess, isError}] = useDeleteBookingMutation();
+  const handleDeleteBooking = (id: string) => {
     Swal.fire({
-      title: "Do you want to delete this service?",
+      title: "Do you want to delete this booking?",
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: "Yes",
@@ -28,7 +28,7 @@ const TableAction = ({id}: TableProps) => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteService(id);
+        deleteBooking(id);
       } else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");
       }
@@ -37,7 +37,7 @@ const TableAction = ({id}: TableProps) => {
   //showing success or error message on delete
   useEffect(() => {
     if (deleteData?.success && isSuccess) {
-      Swal.fire("Great!", "Service deleted successfully!", "success");
+      Swal.fire("Great!", "Booking deleted successfully!", "success");
     } else if (!deleteData?.success && isError) {
       Swal.fire("Oops!", `Something went wrong`, "error");
     }
@@ -54,13 +54,13 @@ const TableAction = ({id}: TableProps) => {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
         <DropdownMenuItem>
-          <Link href={`/dashboard/services/editservice/${id}`}>Edit</Link>
+          <Link href={`/dashboard/bookings/editbooking/${id}`}>Edit</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => handleDeleteService(id)}>Delete</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleDeleteBooking(id)}>Delete</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 };
 
-export default TableAction;
+export default BookingTableAction;

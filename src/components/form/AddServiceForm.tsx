@@ -32,8 +32,9 @@ const AddServiceForm = () => {
   //setting form data to add service
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const {name, value} = e.target;
-    setFormData({...formData, [name]: value});
-    console.log(formData);
+    const numericValue = name === "price" ? parseFloat(value) : value;
+    setFormData({...formData, [name]: numericValue});
+    formData.images = images;
   };
 
   // Handle form submission
@@ -50,7 +51,7 @@ const AddServiceForm = () => {
 
     if (data?.success && data?.data) {
       Swal.fire("Congratulations!", `Service Added successfully!`, "success");
-      router.push("/dashboard/manage");
+      router.push("/dashboard/services");
     }
   }, [isSuccess, isError, data, router]);
 

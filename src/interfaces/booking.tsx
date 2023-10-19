@@ -9,6 +9,9 @@ export type IBooking = {
   status: "pending" | "confirmed" | "canceled";
 };
 
+export type IBookingsProps = {
+  booking: IBooking[];
+};
 export type IBookingProps = {
-  users: IBooking[];
+  booking: IBooking;
 };

@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useEffect} from "react";
 import {useRouter} from "next/router";
 import {useAppSelector} from "@/redux/hooks";
 import {useAuthCheck} from "@/hooks/useAuthCheck";
@@ -15,11 +15,11 @@ export default function DashboardLayout({children}: LayoutType) {
   const isChecked = useAuthCheck();
   useEffect(() => {
     if (isChecked) {
-      if (!user.id) {
+      if (!user.email) {
         router.push("/login");
       }
     }
-  }, [isChecked, user.id, router]);
+  }, [isChecked, user.email, router]);
 
   if (!isChecked) {
     return <p>... loading</p>;
