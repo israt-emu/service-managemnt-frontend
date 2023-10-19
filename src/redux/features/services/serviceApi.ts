@@ -41,7 +41,22 @@ export const serviceApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Services"],
     }),
+    addReviews: builder.mutation({
+      query: (data) => ({
+        url: `/reviewRatings`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Services"],
+    }),
+    getReviews: builder.query({
+      query: (id) => ({
+        url: `/reviewRatings/getByService/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Services"],
+    }),
   }),
 });
 
-export const {useAddServiceMutation, useDeleteServiceMutation, useGetServicesQuery, useGetSingleServiceQuery, useUpdateServiceMutation} = serviceApi;
+export const {useAddServiceMutation, useDeleteServiceMutation, useGetServicesQuery, useGetSingleServiceQuery, useUpdateServiceMutation, useAddReviewsMutation, useGetReviewsQuery} = serviceApi;

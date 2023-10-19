@@ -8,23 +8,27 @@ import {useAddToCartMutation} from "@/redux/features/cart/cartApi";
 import Swal from "sweetalert2";
 import {useAppSelector} from "@/redux/hooks";
 import {useRouter} from "next/router";
-import {useGetSingleServiceQuery} from "@/redux/features/services/serviceApi";
+import {useAddReviewsMutation, useGetReviewsQuery, useGetSingleServiceQuery} from "@/redux/features/services/serviceApi";
+import {Input} from "../ui/input";
+import {IReviewRating} from "@/interfaces/service";
+import {IUser} from "@/interfaces/user";
 const ServiceDetailsCard = () => {
   const router = useRouter();
   const {id} = router.query;
   const {data, isLoading} = useGetSingleServiceQuery(id);
+  //handling quantity of product
+  const [quantity, setQuantity] = useState(1);
+  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState("");
 
   //adding product to cart
   const {user} = useAppSelector((state) => state.auth);
   const [addToCart, {data: addData, isSuccess, isError}] = useAddToCartMutation();
   const handleAddToCart = () => {
     addToCart({
-      product: {
-        price: data?.data?.price,
-        name: data?.data?.name,
-        productId: data?.data?._id,
-        quantity: quantity,
-      },
+      price: data?.data?.price,
+      serviceId: data?.data?._id,
+      quantity: quantity,
       user: user.id,
     });
   };
@@ -38,6 +42,30 @@ const ServiceDetailsCard = () => {
       Swal.fire("Congratulations!", `Service Added to cart successfully!`, "success");
     }
   }, [isSuccess, isError, addData]);
+
+  const [addReview, {data: reviewData, isError: reviewError, isSuccess: reviewAddSuccess}] = useAddReviewsMutation();
+  const handleAddReview = (e: {preventDefault: () => void}) => {
+    e.preventDefault();
+    addReview({
+      rating: rating,
+      review: review,
+      service: data?.data?._id,
+      user: user.id,
+    });
+  };
+  //showing success or error message
+  useEffect(() => {
+    if (!reviewData?.success && reviewError) {
+      Swal.fire("Oops!", `Something Went wrong`, "error");
+    }
+
+    if (reviewData?.success && reviewData?.data) {
+      Swal.fire("Congratulations!", `Review Added  successfully!`, "success");
+    }
+  }, [reviewData, reviewError, reviewAddSuccess]);
+
+  const {data: reviewAndRatingData} = useGetReviewsQuery(data?.data?._id);
+  console.log(reviewAndRatingData);
   return (
     <section className="">
       <div className="md:container w-11/12 flex flex-col items-center mx-auto lg:flex-row mt-4 py-8">
@@ -63,10 +91,36 @@ const ServiceDetailsCard = () => {
               Add to Cart
             </Button>
           </div>
-
-          <div>
-            <p className="flex items-center gap-2 text-lg font-medium">30 days easy return</p>
+        </div>
+      </div>
+      <div className="w-full p-4 bg-white shadow-md rounded-lg">
+        <h3 className="font-bold text-xl mb-4">Add A review</h3>
+        <form onSubmit={handleAddReview} className="mb-4">
+          <div className="mb-4">
+            <Input min={0} max={5} type="number" id="rating" value={rating} name="rating" className="w-full border border-black p-2 rounded" placeholder="Your rating" onChange={(e) => setRating(Number(e.target.value))} />
           </div>
+          <div className="mb-4">
+            <textarea id="review" name="review" className="w-full border border-black p-2 rounded" placeholder="Your Comment" value={review} onChange={(e) => setReview(e.target.value)}></textarea>
+          </div>
+          <div className="mb-4"></div>
+          <div className="mb-4"></div>
+          <div className="mt-8">
+            <Button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+              Submit
+            </Button>
+          </div>
+        </form>
+
+        <div>
+          {reviewAndRatingData?.data?.map((item: IReviewRating) => (
+            <div className="p-3 shadow-lg mb-3">
+              <p className="font-bold text-xl">
+                Name: {(item?.user as IUser).name.firstName} {(item?.user as IUser).name.lastName}
+              </p>
+              <p> Comment: {item?.review}</p>
+              <p> Rating: {item?.rating}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

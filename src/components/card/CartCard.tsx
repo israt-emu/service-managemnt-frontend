@@ -5,7 +5,6 @@ import {Button} from "../ui/button";
 import {useDeleteToCartMutation, useGetSingleCartQuery, useHandleQuantityMutation} from "@/redux/features/cart/cartApi";
 import {useAppSelector} from "@/redux/hooks";
 import Swal from "sweetalert2";
-
 import {ICartProps} from "@/interfaces/cart";
 import {DeleteIcon} from "lucide-react";
 import {useAddBookingMutation} from "@/redux/features/bookings/bookingApi";

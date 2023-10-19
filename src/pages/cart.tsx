@@ -1,16 +1,16 @@
 import CartCard from "@/components/card/CartCard";
 import Error from "@/components/shared/Error";
-import { Button } from "@/components/ui/button";
-import { ICart } from "@/interfaces/cart";
+import {Button} from "@/components/ui/button";
+import {ICart} from "@/interfaces/cart";
 import MainLayout from "@/layouts/MainLayout";
 
-import { useGetSingleCartQuery } from "@/redux/features/cart/cartApi";
-import { useAppSelector } from "@/redux/hooks";
+import {useGetSingleCartQuery} from "@/redux/features/cart/cartApi";
+import {useAppSelector} from "@/redux/hooks";
 import Link from "next/link";
 
 const Cart = () => {
-  const { user } = useAppSelector((state) => state.auth);
-  const { data, isLoading, isError } = useGetSingleCartQuery(user.id);
+  const {user} = useAppSelector((state) => state.auth);
+  const {data, isLoading, isError} = useGetSingleCartQuery(user.id);
   //let decide what to render
   console.log(data);
   let content = null;
@@ -21,16 +21,10 @@ const Cart = () => {
     content = <Error message="No Products in cart!" />;
   }
   if (!isLoading && data?.data?.length === 0) {
-    content = (
-      <h1 className="font-semibold font-serif text-xl">No Products in cart!</h1>
-    );
+    content = <h1 className="font-semibold font-serif text-xl">No Products in cart!</h1>;
   }
   if (!isLoading && data?.data?.length > 0) {
-    content =
-      data?.data?.length > 0 &&
-      data?.data?.map((product: ICart, i: number) => (
-        <CartCard product={product} key={i} />
-      ));
+    content = data?.data?.length > 0 && data?.data?.map((cart: ICart, i: number) => <CartCard cart={cart} key={i} />);
   }
   return (
     <MainLayout>
@@ -42,16 +36,7 @@ const Cart = () => {
           {content}
           <div className="border-t border-gray-200 py-2 flex items-center justify-between">
             <h3>Total</h3>
-            <h3>
-              {data?.data
-                ?.reduce(
-                  (acc: any, product: ICart) =>
-                    acc + product.quantity * product.price,
-                  0
-                )
-                .toFixed(2)}
-              ৳
-            </h3>
+            <h3>{data?.data?.reduce((acc: any, product: ICart) => acc + product.quantity * product.price, 0).toFixed(2)}৳</h3>
           </div>
 
           <Button className="w-1/6 ml-auto">
