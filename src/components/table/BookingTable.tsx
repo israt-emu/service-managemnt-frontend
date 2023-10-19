@@ -14,7 +14,9 @@ import {DataTablePagination} from "./DataTablePagination";
 import {ChevronDownIcon} from "@radix-ui/react-icons";
 import {useGetBookingsQuery} from "@/redux/features/bookings/bookingApi";
 import BookingTableAction from "./BookingTableAction";
-import { IBooking } from "@/interfaces/booking";
+import {IBooking} from "@/interfaces/booking";
+import {IService} from "@/interfaces/service";
+import {IUser} from "@/interfaces/user";
 //defining table column
 export const columns: ColumnDef<IBooking>[] = [
   {
@@ -70,7 +72,7 @@ export const columns: ColumnDef<IBooking>[] = [
         </Button>
       );
     },
-    cell: ({row}) => <div className="lowercase">{row.getValue("service.title")}</div>,
+    cell: ({row}) => <div className="lowercase">{(row.original.service as IService)?.title}</div>,
   },
   {
     accessorKey: "user",
@@ -81,7 +83,7 @@ export const columns: ColumnDef<IBooking>[] = [
         </Button>
       );
     },
-    cell: ({row}) => <div className="lowercase">{row.getValue("user.email")}</div>,
+    cell: ({row}) => <div className="lowercase">{(row.original.user as IUser)?.email}</div>,
   },
   {
     accessorKey: "totalCost",

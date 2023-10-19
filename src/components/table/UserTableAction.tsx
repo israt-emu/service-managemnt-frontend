@@ -4,20 +4,22 @@ import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, 
 import {Button} from "../ui/button";
 import {DotsHorizontalIcon} from "@radix-ui/react-icons";
 import Link from "next/link";
-import {useDeleteBookingMutation, useGetSingleBookingQuery, useUpdateBookingStatusMutation} from "@/redux/features/bookings/bookingApi";
+import {useDeleteServiceMutation} from "@/redux/features/services/serviceApi";
+import {useDeleteUserMutation, useMakeAdminMutation} from "@/redux/features/users/userApi";
+import {useGetSingleUserQuery} from "@/redux/features/auth/authApi";
 
 //
 export type TableProps = {
   id: string;
 };
-const BookingTableAction = ({id}: TableProps) => {
-  const {data} = useGetSingleBookingQuery(id);
+const UserTableAction = ({id}: TableProps) => {
+  const {data} = useGetSingleUserQuery(id);
+  console.log(data?.data);
   //delete service
-  const [deleteBooking, {data: deleteData, isSuccess, isError}] = useDeleteBookingMutation();
-
-  const handleDeleteBooking = (id: string) => {
+  const [deleteUser, {data: deleteData, isSuccess, isError}] = useDeleteUserMutation();
+  const handleDeleteService = (id: string) => {
     Swal.fire({
-      title: "Do you want to delete this booking?",
+      title: "Do you want to delete this user?",
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: "Yes",
@@ -30,7 +32,7 @@ const BookingTableAction = ({id}: TableProps) => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteBooking(id);
+        deleteUser(id);
       } else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");
       }
@@ -39,16 +41,16 @@ const BookingTableAction = ({id}: TableProps) => {
   //showing success or error message on delete
   useEffect(() => {
     if (deleteData?.success && isSuccess) {
-      Swal.fire("Great!", "Booking deleted successfully!", "success");
+      Swal.fire("Great!", "User deleted successfully!", "success");
     } else if (!deleteData?.success && isError) {
       Swal.fire("Oops!", `Something went wrong`, "error");
     }
   }, [deleteData, isError, isSuccess]);
-  //update status
-  const [updateStatus, {data: updateData, isSuccess: updateSuccess, isError: updateError}] = useUpdateBookingStatusMutation();
-  const handleStatus = (status: string) => {
+  //make admin
+  const [makeAdmin, {data: updateData, isSuccess: updateSuccess, isError: updateError}] = useMakeAdminMutation();
+  const handleMakeAdmin = (email: string) => {
     Swal.fire({
-      title: `Do you want to ${status === "confirmed" ? "confirm" : "cancel"} this booking?`,
+      title: "Do you want to make this user admin?",
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: "Yes",
@@ -61,7 +63,7 @@ const BookingTableAction = ({id}: TableProps) => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        updateStatus({id, status});
+        makeAdmin(email);
       } else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");
       }
@@ -70,7 +72,7 @@ const BookingTableAction = ({id}: TableProps) => {
   //showing success or error message on update
   useEffect(() => {
     if (updateData?.success && updateSuccess) {
-      Swal.fire("Great!", "Status updated successfully!", "success");
+      Swal.fire("Great!", "Make admin successfully!", "success");
     } else if (!updateData?.success && updateError) {
       Swal.fire("Oops!", `Something went wrong`, "error");
     }
@@ -87,15 +89,14 @@ const BookingTableAction = ({id}: TableProps) => {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
         <DropdownMenuItem>
-          <Link href={`/dashboard/bookings/editbooking/${id}`}>Reschedule</Link>
+          <Link href={`/dashboard/users/${id}`}>Edit</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => handleDeleteBooking(id)}>Delete</DropdownMenuItem>
-        {data?.data?.status === "pending" && <DropdownMenuItem onClick={() => handleStatus("confirmed")}>Confirm</DropdownMenuItem>}
-        {data?.data?.status === "pending" && <DropdownMenuItem onClick={() => handleStatus("canceled")}>Cancel</DropdownMenuItem>}
+        <DropdownMenuItem onClick={() => handleDeleteService(id)}>Delete</DropdownMenuItem>
+        {data?.data?.role === "user" && <DropdownMenuItem onClick={() => handleMakeAdmin(data?.data?.email)}>Make Admin</DropdownMenuItem>}
       </DropdownMenuContent>
     </DropdownMenu>
   );
 };
 
-export default BookingTableAction;
+export default UserTableAction;
