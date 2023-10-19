@@ -9,11 +9,12 @@ import {useAddServiceMutation} from "@/redux/features/services/serviceApi";
 const AddServiceForm = () => {
   const {user} = useAppSelector((state) => state.auth);
   const [addService, {data, isError, isSuccess}] = useAddServiceMutation();
-  // Initialize state to hold form input values
   const [images, setImages] = useState<string[]>([]);
+  const [imageBox, setImageBox] = useState<string[]>(["add"]);
+  // Initialize state to hold form input values
   const [formData, setFormData] = useState({
     title: "",
-    price: "",
+    price: 0,
     duration: "",
     category: "",
     status: "available",
@@ -21,16 +22,18 @@ const AddServiceForm = () => {
     images: images,
     addedBy: user.id,
   });
-  //handle Images
-  const handleImages = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  //handling images
+
+  const handleImages = (e: ChangeEvent<HTMLInputElement>) => {
     const image = e.target.value;
-    const newImages = [image, ...images];
-    setImages(newImages);
+    setImages((prevData) => [...prevData, image]);
+    console.log(images);
   };
   //setting form data to add service
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const {name, value} = e.target;
     setFormData({...formData, [name]: value});
+    console.log(formData);
   };
 
   // Handle form submission
@@ -54,12 +57,17 @@ const AddServiceForm = () => {
   return (
     <div className="w-10/12 mx-auto mt-4">
       <h1 className="text-3xl font-semibold text-center mb-3 font-serif">Add Service</h1>
-      <form onSubmit={handleSubmit} className="px-6 py-8 bg-gray-200 rounded">
-        <div>
-          <label htmlFor="title">Title</label>
-          <Input type="text" id="title" name="title" value={formData.title} onChange={handleInputChange} required className="rounded my-2" />
+      <form onSubmit={handleSubmit} className="px-8 py-8 bg-gray-200 rounded">
+        <div className="grid grid-cols-2 items-center gap-2 w-full my-2">
+          <div className="flex flex-col">
+            <label htmlFor="title">Title</label>
+            <Input type="text" id="title" name="title" value={formData.title} onChange={handleInputChange} required className="rounded" />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="category">Category</label>
+            <Input type="text" id="category" name="category" value={formData.category} onChange={handleInputChange} required className="rounded" />
+          </div>
         </div>
-
         <div className="grid grid-cols-2 items-center gap-2 w-full my-2">
           <div>
             <label htmlFor="price">Price</label>
@@ -72,26 +80,32 @@ const AddServiceForm = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 items-center gap-2 w-full my-2">
-          <div className="flex flex-col">
-            <label htmlFor="category">Category</label>
-            <Input type="text" id="category" name="category" value={formData.category} onChange={handleInputChange} required className="rounded" />
-          </div>
-        </div>
-
         <div>
           <label htmlFor="description">Description</label>
           <textarea rows={4} className="w-full rounded" id="description" name="description" value={formData.description} onChange={handleInputChange}></textarea>
         </div>
 
-        <div>
-          <label htmlFor="image">Image URL</label>
-          <Input type="text" id="image" name="image" value={formData.images.join()} onChange={handleInputChange} className="rounded" />
+        <div className="grid grid-cols-2 items-start gap-2 mb-2">
+          <div>
+            {imageBox.map((image, index) => (
+              <div key={index}>
+                <label htmlFor={`image${index}`}>Image URL</label>
+                <Input type="text" id={`image${index}`} name={`image${index}`} onChange={(e) => handleImages(e)} className="rounded w-full" />
+              </div>
+            ))}
+          </div>
+          <div className="flex mt-6">
+            <div className="py-1.5 px-2 rounded bg-zinc-700 text-white" onClick={() => setImageBox((prevData) => [...prevData, "add"])}>
+              Add More Image
+            </div>
+          </div>
         </div>
 
-        <Button className="mt-2" type="submit">
-          Add Service
-        </Button>
+        <div className="flex justify-end">
+          <Button className="mt-2" type="submit">
+            Add Service
+          </Button>
+        </div>
       </form>
     </div>
   );
