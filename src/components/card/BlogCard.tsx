@@ -44,7 +44,7 @@ const BlogCard = ({blog}: IBlogProps) => {
   return (
     <Card>
       <CardHeader>
-        <Image src={blogImg} alt="card-img" className="mx-auto" width={250} height={200} />
+        <img src={"blogImg"} alt="card-img" className="mx-auto" />
       </CardHeader>
       <CardContent>
         <CardTitle className="text-xl">{blog.title}</CardTitle>

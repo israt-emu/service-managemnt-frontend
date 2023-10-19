@@ -142,7 +142,7 @@ const ServiceTable = () => {
   return (
     <div className="w-full">
       <div className="flex items-center py-4 px-1">
-        <Input placeholder="Filter Products..." value={(table.getColumn("category")?.getFilterValue() as string) ?? ""} onChange={(event) => table.getColumn("category")?.setFilterValue(event.target.value)} className="max-w-sm" />
+        <Input placeholder="Filter Services..." value={(table.getColumn("category")?.getFilterValue() as string) ?? ""} onChange={(event) => table.getColumn("category")?.setFilterValue(event.target.value)} className="max-w-sm" />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">

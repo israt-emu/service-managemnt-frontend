@@ -1,11 +1,12 @@
-import { useAuthCheck } from "@/hooks/useAuthCheck";
+import {useAuthCheck} from "@/hooks/useAuthCheck";
 import Navbar from "@/components/shared/Navbar";
+import Footer from "@/components/shared/Footer";
 
 type LayoutType = {
   children?: React.ReactNode;
 };
 
-export default function MainLayout({ children }: LayoutType) {
+export default function MainLayout({children}: LayoutType) {
   const isChecked = useAuthCheck();
 
   if (!isChecked) {
@@ -15,7 +16,8 @@ export default function MainLayout({ children }: LayoutType) {
   return (
     <>
       <Navbar />
-      {children}
+      <div className="container mx-auto pt-20">{children}</div>
+      <Footer />
     </>
   );
 }

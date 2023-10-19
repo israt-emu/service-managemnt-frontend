@@ -14,6 +14,7 @@ export const bookingApi = api.injectEndpoints({
         url: `/bookings/getAll/${user}`,
         method: "GET",
       }),
+      providesTags: ["Bookings"],
     }),
     getSingleBooking: builder.query({
       query: (id) => ({
@@ -29,7 +30,7 @@ export const bookingApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Bookings"],
+      invalidatesTags: ["Bookings", "booking"],
     }),
     reScheduleBooking: builder.mutation({
       query: (data) => ({
@@ -37,7 +38,7 @@ export const bookingApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Bookings"],
+      invalidatesTags: ["Bookings", "booking"],
     }),
 
     deleteBooking: builder.mutation({
@@ -45,7 +46,7 @@ export const bookingApi = api.injectEndpoints({
         url: `/bookings/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Bookings"],
+      invalidatesTags: ["Bookings", "booking"],
     }),
     addBooking: builder.mutation({
       query: (data) => ({
