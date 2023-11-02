@@ -43,22 +43,22 @@ const ServiceCard = ({service}: IServiceProps) => {
     }
   }, [isSuccess, isError, data]);
   return (
-    <Card className="h-full">
+    <Card className="h-full border border-gray-300 bg-gray-100 hover:card-shadow">
       <Link href={`/services/${service._id}`}>
         <CardHeader>
           <img src={"https://www.shutterstock.com/shutterstock/photos/182991422/display_1500/stock-photo-red-sea-anemonefish-in-bubble-anemone-182991422.jpg"} alt="card image" className="h-48" />
-          <CardTitle>{service?.title}</CardTitle>
+          <CardTitle className="text-xl mb-0">{service?.title}</CardTitle>
         </CardHeader>
-        <CardContent>
-          <p>Category:{service?.category}</p>
-          <p>Status:{service?.status}</p>
-          <p>price:{service?.price}৳</p>
+        <CardContent className="py-1.5 mt-0 font-mono">
+          <p className="">Category:{service?.category}</p>
+          <p className="capitalize">{service?.status}</p>
+          <p className="font-semibold">{service?.price}৳</p>
         </CardContent>
       </Link>
       <CardFooter className="flex items-center justify-between">
-        <Button onClick={handleAddToCart} className="py-2">
+        <button onClick={handleAddToCart} className="py-1.5 bg-secondary text-white px-3 rounded w-full">
           Add to Cart
-        </Button>
+        </button>
       </CardFooter>
     </Card>
   );

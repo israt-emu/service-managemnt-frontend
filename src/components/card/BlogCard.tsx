@@ -46,8 +46,8 @@ const BlogCard = ({blog}: IBlogProps) => {
       <CardHeader>
         <img src={"blogImg"} alt="card-img" className="mx-auto" />
       </CardHeader>
-      <CardContent>
-        <CardTitle className="text-xl">{blog.title}</CardTitle>
+      <CardContent className="bg-secondary">
+        <CardTitle className="text-xl text-primary-foreground">{blog.title}</CardTitle>
         <CardDescription>{blog.description}</CardDescription>
       </CardContent>
       <CardFooter>

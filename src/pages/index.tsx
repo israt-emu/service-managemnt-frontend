@@ -4,10 +4,14 @@ import LeftContent from "@/components/feedback/LeftContent";
 import Feedbacks from "@/components/feedback/Feedbacks";
 import AvailableService from "@/components/services/AvailableService";
 import LatestBlog from "@/components/blogs/LatestBlog";
+import Banner from "@/components/home/Banner";
+import Supports from "@/components/home/Supports";
 
 export default function Home() {
   return (
     <MainLayout>
+      <Banner />
+      <Supports />
       {/* available services */}
       <AvailableService />
       {/* upcoming services */}

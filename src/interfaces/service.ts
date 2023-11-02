@@ -22,3 +22,8 @@ export type IReviewRating = {
 export type IServiceProps = {
   service: IService;
 };
+export type ISupportProps = {
+  title: string;
+  text: string;
+  icon: string;
+};
