@@ -38,10 +38,10 @@
     @apply flex gap-1 items-center py-3 px-3 font-semibold;
   }
   .link-active {
-    @apply bg-gray-400 text-gray-700;
+    @apply bg-primary;
   }
   .link-hover:hover {
-    @apply bg-gray-200;
+    @apply bg-muted text-gray-800;
   }
   .gradient {
     background: rgb(17, 57, 70);

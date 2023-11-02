@@ -8,8 +8,10 @@ import {useDeleteBlogMutation} from "@/redux/features/blog/blog";
 import Link from "next/link";
 import Image from "next/image";
 import blogImg from "../../assets/blog.png";
+import {useRouter} from "next/router";
 const BlogCard = ({blog}: IBlogProps) => {
-  //delete faq
+  const router = useRouter();
+  //delete blog
   const [deleteBlog, {data: deleteData, isSuccess, isError}] = useDeleteBlogMutation();
 
   const handleDeleteBlog = (id: string) => {
@@ -42,24 +44,26 @@ const BlogCard = ({blog}: IBlogProps) => {
     }
   }, [deleteData, isError, isSuccess]);
   return (
-    <Card>
+    <Card className="border border-gray-300 bg-gray-100">
       <CardHeader>
         <img src={"blogImg"} alt="card-img" className="mx-auto" />
       </CardHeader>
-      <CardContent className="bg-secondary">
+      <CardContent className="">
         <CardTitle className="text-xl text-primary-foreground">{blog.title}</CardTitle>
         <CardDescription>{blog.description}</CardDescription>
       </CardContent>
-      <CardFooter>
-        <div onClick={() => handleDeleteBlog(blog._id)} className="mr-3">
-          <AiFillDelete className="text-lg text-red-500 cursor-pointer" title="Delete" />
-        </div>
-        <Link href={`/dashboard/blogs/editblog/${blog._id}`}>
-          <div>
-            <AiFillEdit className="text-lg" title="Edit" />
+      {router.pathname === "/" || (
+        <CardFooter>
+          <div onClick={() => handleDeleteBlog(blog._id)} className="mr-3">
+            <AiFillDelete className="text-lg text-red-500 cursor-pointer" title="Delete" />
           </div>
-        </Link>
-      </CardFooter>
+          <Link href={`/dashboard/blogs/editblog/${blog._id}`}>
+            <div>
+              <AiFillEdit className="text-lg" title="Edit" />
+            </div>
+          </Link>
+        </CardFooter>
+      )}
     </Card>
   );
 };

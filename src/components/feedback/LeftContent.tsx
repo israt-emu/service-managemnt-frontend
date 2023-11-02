@@ -1,11 +1,15 @@
 import Link from "next/link";
+import {MdFeedback} from "react-icons/md";
 
 const LeftContent = () => {
   return (
-    <div className="col-span-2">
-      <h1 className="text-2xl font-semibold font-serif">Customer's Feedback</h1>
+    <div className="flex justify-between items-center mb-5">
+      <h1 className="text-2xl text-white font-semibold font-serif flex items-center gap-2">
+        <MdFeedback />
+        Customer's Feedback
+      </h1>
       <Link href={"/feedback"}>
-        <button className="py-2 px-4 bg-slate-900 text-secondary mt-2">Give Feedback</button>
+        <button className="py-2 px-4 bg-secondary button-shadow text-white mt-2 ">Give Feedback</button>
       </Link>
     </div>
   );

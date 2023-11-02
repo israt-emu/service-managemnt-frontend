@@ -25,7 +25,7 @@ const Sidebar = () => {
   }, [location, dispatch]);
 
   return (
-    <div className={`md:flex flex-col bg-gray-300 h-full text-gray-800`}>
+    <div className={`md:flex flex-col bg-secondary h-full text-secondary-foreground`}>
       <div className="space-y-3  ">
         <div className="flex-1">
           {/* <img src={logo} alt="logo" className="w-14" /> */}

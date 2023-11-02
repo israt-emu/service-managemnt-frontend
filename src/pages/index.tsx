@@ -6,6 +6,8 @@ import AvailableService from "@/components/services/AvailableService";
 import LatestBlog from "@/components/blogs/LatestBlog";
 import Banner from "@/components/home/Banner";
 import Supports from "@/components/home/Supports";
+import FAQ from "@/components/faq/FAQ";
+import UpcomingEvents from "@/components/upcomingEvents/UpcomingEvents";
 
 export default function Home() {
   return (
@@ -14,16 +16,13 @@ export default function Home() {
       <Supports />
       {/* available services */}
       <AvailableService />
-      {/* upcoming services */}
-      {/* events by category */}
-      {/* overview  */}
-      {/* //feedback  */}
-      {/* latest news  */}
+      <UpcomingEvents />
       <LatestBlog />
-      <section className=" mx-auto p-6 grid lg:grid-cols-6 gap-4 bg-slate-300 mb-12">
+      <section className="w-11/12 md:px-8 py-12 mx-auto container grid grid-cols-1 gradient mb-12">
         <LeftContent />
         <Feedbacks />
       </section>
+      <FAQ />
     </MainLayout>
   );
 }

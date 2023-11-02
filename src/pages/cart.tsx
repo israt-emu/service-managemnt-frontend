@@ -18,32 +18,31 @@ const Cart = () => {
     content = <h1>Loading...</h1>;
   }
   if (!isLoading && isError) {
-    content = <Error message="No Products in cart!" />;
+    content = <Error message="No Services in cart!" />;
   }
   if (!isLoading && data?.data?.length === 0) {
-    content = <h1 className="font-semibold font-serif text-xl">No Products in cart!</h1>;
+    content = <h1 className="font-semibold font-serif text-xl">No Services in cart!</h1>;
   }
   if (!isLoading && data?.data?.length > 0) {
     content = data?.data?.length > 0 && data?.data?.map((cart: ICart, i: number) => <CartCard cart={cart} key={i} />);
   }
   return (
     <MainLayout>
-      <div className="w-9/12 mx-auto py-12 ">
+      <div className="w-6/12 mx-auto py-12 ">
         <div className="flex items-center mb-3">
-          <p className="text-xl font-semibold font-serif">Shopping Cart:</p>
+          <p className="text-xl font-semibold font-serif">Your Service Cart:</p>
         </div>
-        <div className="grid grid-cols-1 gap-4 justify-center px-6 bg-gray-100 py-6">
-          {content}
-          <div className="border-t border-gray-200 py-2 flex items-center justify-between">
-            <h3>Total</h3>
-            <h3>{data?.data?.reduce((acc: any, product: ICart) => acc + product.quantity * product.price, 0).toFixed(2)}৳</h3>
-          </div>
-
-          <Button className="w-1/6 ml-auto">
-            <Link className="" href="/checkout">
-              Checkout
-            </Link>
-          </Button>
+        <ul className="flex flex-col divide-y divide-gray-700 ">{content}</ul>
+        <div className="space-y-1 text-right">
+          <p className="font-mono">
+            Total amount:
+            <span className="font-semibold">{data?.data?.reduce((acc: any, cart: ICart) => acc + cart.quantity * cart.price, 0).toFixed(2)}৳</span>
+          </p>
+        </div>
+        <div className="flex justify-end space-x-4 mt-3">
+          <button type="button" className="px-6 py-2 border border-secondary rounded-md">
+            Back to Services
+          </button>
         </div>
       </div>
     </MainLayout>
