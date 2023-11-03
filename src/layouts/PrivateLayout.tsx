@@ -3,6 +3,7 @@ import {useRouter} from "next/router";
 import {useAppSelector} from "@/redux/hooks";
 import {useAuthCheck} from "@/hooks/useAuthCheck";
 import Navbar from "@/components/shared/Navbar";
+import Footer from "@/components/shared/Footer";
 
 type LayoutType = {
   children?: React.ReactNode;
@@ -26,10 +27,11 @@ export default function PrivateLayout({children}: LayoutType) {
   }
 
   return (
-    <div>
+    <>
       <Navbar />
 
-      <div className={`text-primary overflow-y-scroll no-scrollbar col-start-3 transition-all duration-300 pr-8 col-end-13 h-screen mt-8 z-0 pb-8 pt-20`}>{user?.email && children}</div>
-    </div>
+      <div className={`mx-auto pt-24 bg-background`}>{user?.email && children}</div>
+      <Footer />
+    </>
   );
 }

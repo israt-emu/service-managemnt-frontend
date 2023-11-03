@@ -3,15 +3,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import {Card, CardContent, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
-
-import {Button} from "../ui/button";
-
 import {useAddToCartMutation} from "@/redux/features/cart/cartApi";
 import {useEffect, useState} from "react";
 import Swal from "sweetalert2";
 import {useAppSelector} from "@/redux/hooks";
 import {IServiceProps} from "@/interfaces/service";
 import Link from "next/link";
+import serviceImg from "../../../assets/service.jpg";
+import Image from "next/image";
 
 const ServiceCard = ({service}: IServiceProps) => {
   //
@@ -46,7 +45,7 @@ const ServiceCard = ({service}: IServiceProps) => {
     <Card className="h-full border border-gray-300 bg-gray-100 hover:card-shadow">
       <Link href={`/services/${service._id}`}>
         <CardHeader>
-          <img src={"https://www.shutterstock.com/shutterstock/photos/182991422/display_1500/stock-photo-red-sea-anemonefish-in-bubble-anemone-182991422.jpg"} alt="card image" className="h-48" />
+          <Image src={serviceImg ? serviceImg : "https://www.shutterstock.com/shutterstock/photos/182991422/display_1500/stock-photo-red-sea-anemonefish-in-bubble-anemone-182991422.jpg"} alt="card image" className="h-48" width={400} height={200} />
           <CardTitle className="text-xl mb-0">{service?.title}</CardTitle>
         </CardHeader>
         <CardContent className="py-1.5 mt-0 font-mono">

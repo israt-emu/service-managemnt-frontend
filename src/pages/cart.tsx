@@ -1,8 +1,7 @@
 import CartCard from "@/components/card/CartCard";
 import Error from "@/components/shared/Error";
-import {Button} from "@/components/ui/button";
 import {ICart} from "@/interfaces/cart";
-import MainLayout from "@/layouts/MainLayout";
+import PrivateLayout from "@/layouts/PrivateLayout";
 
 import {useGetSingleCartQuery} from "@/redux/features/cart/cartApi";
 import {useAppSelector} from "@/redux/hooks";
@@ -27,7 +26,7 @@ const Cart = () => {
     content = data?.data?.length > 0 && data?.data?.map((cart: ICart, i: number) => <CartCard cart={cart} key={i} />);
   }
   return (
-    <MainLayout>
+    <PrivateLayout>
       <div className="w-6/12 mx-auto py-12 ">
         <div className="flex items-center mb-3">
           <p className="text-xl font-semibold font-serif">Your Service Cart:</p>
@@ -47,7 +46,7 @@ const Cart = () => {
           </Link>
         </div>
       </div>
-    </MainLayout>
+    </PrivateLayout>
   );
 };
 

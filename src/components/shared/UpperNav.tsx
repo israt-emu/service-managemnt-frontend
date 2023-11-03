@@ -8,29 +8,66 @@ import {userLoggedOut} from "@/redux/features/auth/authSlice";
 import {useAppDispatch, useAppSelector} from "@/redux/hooks";
 import {useGetSingleUserQuery} from "@/redux/features/auth/authApi";
 import Link from "next/link";
-import {DivideIcon, MailIcon, PhoneIcon, SearchIcon} from "lucide-react";
+import {MailIcon, PhoneIcon, SearchIcon} from "lucide-react";
 import {DividerVerticalIcon} from "@radix-ui/react-icons";
+import {SetStateAction, useEffect, useState} from "react";
+import {useRouter} from "next/router";
+import {searched} from "@/redux/features/filter/filterSlice";
 
 const UpperNav = () => {
   const {user} = useAppSelector((state) => state?.auth);
   const {data: userData} = useGetSingleUserQuery(user?.id);
 
   const dispatch = useAppDispatch();
+
+  const router = useRouter();
   //log out
   const handleLogout = () => {
     dispatch(userLoggedOut());
     localStorage.removeItem("auth");
   };
+  //search
+  const [searchText, setSearchText] = useState("");
+  const searchTerm = useAppSelector((state: {filter: {searchText: any}}) => state.filter.searchText);
+  const handleSearch = (text: SetStateAction<string>) => {
+    setSearchText(text);
+  };
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
+    const debouncedSearch = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        if (searchText) {
+          dispatch(searched(searchText));
+        }
+        if (searchText && router.pathname !== "/services/search") {
+          router.push("/services/search");
+        }
+      }, 2000);
+    };
+
+    debouncedSearch();
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [searchText]);
+
+  useEffect(() => {
+    setSearchText(searchTerm);
+  }, [router]);
   return (
-    <header className=" py-3 gradient text-gray-200">
-      <div className="container flex justify-between h-9 mx-auto">
+    <header className="py-3 gradient text-gray-200">
+      <div className="container flex justify-between h-9 mx-auto w-11/12">
         <div className="flex items-center">
-          <a rel="noopener noreferrer" href="#" aria-label="Back to homepage" className="flex items-center p-2 gap-1">
+          <a rel="noopener noreferrer" href="#" aria-label="Back to homepage" className="flex items-center gap-1">
             <MailIcon className="w-5" />
             <p>info@gmail.com</p>
           </a>
           <DividerVerticalIcon className="" />
-          <a rel="noopener noreferrer" href="#" aria-label="Back to homepage" className="flex items-center p-2 gap-1">
+          <a rel="noopener noreferrer" href="#" aria-label="Back to homepage" className="flex items-center gap-1">
             <PhoneIcon className="w-4" />
             <p>+88 01883960078</p>
           </a>
@@ -42,7 +79,7 @@ const UpperNav = () => {
                 <SearchIcon className="w-5" />
               </button>
             </span>
-            <input type="search" name="Search" placeholder="Search..." className="w-32 py-2 pl-8 text-sm sm:w-auto focus:outline-none bg-transparent border-b border-white text-gray-100 " />
+            <input type="search" name="Search" placeholder="Search..." className="w-32 py-2 pl-8 text-sm sm:w-auto focus:outline-none bg-transparent border-b border-white text-gray-100 " value={searchText} onChange={(e) => handleSearch(e.target.value)} />
           </div>
           {/* login signup btton render depending on users email  */}
           <DropdownMenu>

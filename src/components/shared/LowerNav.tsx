@@ -11,7 +11,7 @@ const LowerNav = () => {
   const cartTotal = data?.data?.length;
   return (
     <div className="h-full w-full bg-white ">
-      <div className="container flex items-center justify-between w-full md:max-w-7xl h-full mx-auto">
+      <div className="container flex items-center justify-between w-11/12 h-full mx-auto">
         <div className="flex items-center gap-1">
           <Image className="w-12" width={200} height={50} src={logo} alt="logo" />
           <p className="text-secondary font-serif font-semibold">

@@ -36,7 +36,7 @@ const Supports = () => {
   ];
   return (
     <div className="container">
-      <div className="grid grid-cols-2 md:grid-cols-3 w-11/12 mx-auto border-b border-r border-gray-300 -mt-8 button-shadow">
+      <div className="grid grid-cols-2 md:grid-cols-3 w-11/12 mx-auto border-b border-r border-gray-300 -mt-12 button-shadow">
         {supportArray.map((support: {title: string; text: string; icon: string}, i: number) => (
           <SupportCard key={i} title={support.title} text={support.text} icon={support.icon} />
         ))}

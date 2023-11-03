@@ -1,4 +1,3 @@
-import Image from "next/image";
 import MainLayout from "@/layouts/MainLayout";
 import LeftContent from "@/components/feedback/LeftContent";
 import Feedbacks from "@/components/feedback/Feedbacks";
@@ -18,7 +17,7 @@ export default function Home() {
       <AvailableService />
       <UpcomingEvents />
       <LatestBlog />
-      <section className="w-11/12 md:px-8 py-12 mx-auto container grid grid-cols-1 gradient mb-12">
+      <section className="w-11/12 py-12 mx-auto container grid grid-cols-1 gradient mb-12">
         <LeftContent />
         <Feedbacks />
       </section>

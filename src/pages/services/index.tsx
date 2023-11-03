@@ -1,7 +1,6 @@
 import ServiceCard from "@/components/card/ServiceCard";
-import Navbar from "@/components/shared/Navbar";
 import {IService} from "@/interfaces/service";
-import MainLayout from "@/layouts/MainLayout";
+import PrivateLayout from "@/layouts/PrivateLayout";
 import {useGetServicesQuery} from "@/redux/features/services/serviceApi";
 
 export default function index() {
@@ -9,8 +8,8 @@ export default function index() {
   console.log(data);
 
   return (
-    <MainLayout>
-      <div className="w-11/12 mx-auto pb-6 container pt-20">
+    <PrivateLayout>
+      <div className="w-11/12 mx-auto pb-6 container pt-12">
         <h1 className="text-3xl font-serif font-semibold mt-4">All Services:</h1>
         <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 geid-cols-1 mt-6 gap-6">
           {data?.data?.map((item: IService) => (
@@ -18,6 +17,6 @@ export default function index() {
           ))}
         </div>
       </div>
-    </MainLayout>
+    </PrivateLayout>
   );
 }
