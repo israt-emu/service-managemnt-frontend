@@ -65,7 +65,7 @@ const FeedBackForm = () => {
           <div className="flex flex-col">
             <label htmlFor="comments">Comments</label>
 
-            <textarea rows="3" id="comments" name="comments" placeholder="Message..." onChange={handleInputChange} value={formData.comments} className="p-4 rounded-md resize-none border"></textarea>
+            <textarea rows={3} id="comments" name="comments" placeholder="Message..." onChange={handleInputChange} value={formData.comments} className="p-4 rounded-md resize-none border"></textarea>
           </div>
         </div>
 

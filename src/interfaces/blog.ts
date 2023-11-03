@@ -7,6 +7,7 @@ export type IBlog = {
   image: string;
   user: IUser | string;
   views: number;
+  createdAt: string;
 };
 
 export type IBlogProps = {

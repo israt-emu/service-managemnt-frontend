@@ -7,7 +7,7 @@ import {useEffect} from "react";
 import {useDeleteBlogMutation} from "@/redux/features/blog/blog";
 import Link from "next/link";
 import Image from "next/image";
-import blogImg from "../../assets/blog.png";
+import blogImg from "../../../assets/blog.jpg";
 import {useRouter} from "next/router";
 const BlogCard = ({blog}: IBlogProps) => {
   const router = useRouter();
@@ -46,13 +46,18 @@ const BlogCard = ({blog}: IBlogProps) => {
   return (
     <Card className="border border-gray-300 bg-gray-100">
       <CardHeader>
-        <img src={"blogImg"} alt="card-img" className="mx-auto" />
+        <Image src={blogImg ? blogImg : "https://source.unsplash.com/200x200/?fashion?2"} alt="card-img" width={400} height={200} className="mx-auto" />
       </CardHeader>
       <CardContent className="">
-        <CardTitle className="text-xl text-primary-foreground">{blog.title}</CardTitle>
-        <CardDescription>{blog.description}</CardDescription>
+        <CardTitle className="text-xl text-primary-foreground">{blog?.title}</CardTitle>
+        <CardDescription>{blog?.description}</CardDescription>
       </CardContent>
-      {router.pathname === "/" || (
+      {router.pathname === "/" ? (
+        <CardFooter className="font-mono flex justify-between items-center text-sm font-semibold">
+          <div className="mr-3">{new Date(blog?.createdAt).toLocaleDateString()}</div>
+          <span className="flex items-center">{blog?.views} views</span>
+        </CardFooter>
+      ) : (
         <CardFooter>
           <div onClick={() => handleDeleteBlog(blog._id)} className="mr-3">
             <AiFillDelete className="text-lg text-red-500 cursor-pointer" title="Delete" />

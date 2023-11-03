@@ -80,8 +80,8 @@ const CartCard = ({cart}: ICartProps) => {
         <div className="flex flex-col justify-between w-full pb-4">
           <div className="flex justify-between w-full pb-2 space-x-2">
             <div className="space-y-1">
-              <h3 className="text-lg font-semibold leadi sm:pr-8">{(cart?.serviceId as IService).title}</h3>
-              <p className="text-sm dark:text-gray-400">{(cart?.serviceId as IService).category}</p>
+              <h3 className="text-lg font-semibold leadi sm:pr-8">{(cart?.serviceId as IService)?.title}</h3>
+              <p className="text-sm dark:text-gray-400">{(cart?.serviceId as IService)?.category}</p>
             </div>
             <div className="text-right">
               <p className="text-lg font-semibold font-mono">{(cart?.price * cart.quantity).toFixed(2)}৳</p>

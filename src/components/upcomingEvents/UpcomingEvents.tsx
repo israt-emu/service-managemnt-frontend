@@ -19,22 +19,22 @@ const UpcomingEvents = () => {
         {data?.data?.slice(0, 2).map((event: IBooking, i: number) => (
           <div key={i} className="grid grid-cols-2 gap-2 bg-white p-4 rounded card-shadow">
             <div>
-              <h1 className="font-serif font-semibold text-xl mb-2">{(event.service as IService).title}</h1>
+              <h1 className="font-serif font-semibold text-xl mb-2">{(event.service as IService)?.title}</h1>
               <p className=" mb-2">
                 Booked By:
-                {(event.user as IUser).name.firstName} {(event.user as IUser).name.lastName}
+                {(event.user as IUser)?.name.firstName} {(event.user as IUser)?.name.lastName}
               </p>
               <h1 className="flex items-center gap-2 mb-2">
                 <div className="bg-secondary w-8 h-8 rounded-full">
                   <Clock1 className="mx-auto mt-1 text-white" />
                 </div>
-                <span className="font-mono ">{event.time}</span>
+                <span className="font-mono ">{event?.time}</span>
               </h1>
               <h1 className="flex items-center gap-2">
                 <div className="bg-secondary w-8 h-8 rounded-full">
                   <Calendar className="mx-auto mt-1 text-white" />
                 </div>
-                <span className="font-mono ">{event.date}</span>
+                <span className="font-mono ">{event?.date}</span>
               </h1>
             </div>
             <div>

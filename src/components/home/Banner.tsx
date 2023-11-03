@@ -1,10 +1,8 @@
-import Image from "next/image";
 import React from "react";
-import bannerImg from "../../../assets/banner-img.jpg";
 import Link from "next/link";
 const Banner = () => {
   return (
-    <section className="banner-home md:py-36 py-20 grid grid-cols-2 justify-between">
+    <section className="banner-home md:py-36 py-20 grid grid-cols-2 justify-between h-screen">
       <div className="md:pl-12 text-center md:text-left container">
         <h1 className="text-white font-bold font-serif text-2xl">🎉 Welcome to our services!</h1>
         <h1 className="text-white font-bold font-serif text-4xl mt-2">

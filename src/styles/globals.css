@@ -54,14 +54,14 @@
     background-size: cover;
   }
   .button-shadow {
-    box-shadow: 4px 14px 42px 3px rgba(17, 57, 70, 0.36);
-    -webkit-box-shadow: 4px 14px 42px 3px rgba(17, 57, 70, 0.36);
-    -moz-box-shadow: 4px 14px 42px 3px rgba(17, 57, 70, 0.36);
+    box-shadow: 4px 14px 42px 3px rgba(43, 114, 138, 0.233);
+    -webkit-box-shadow: 4px 14px 42px 3px rgba(43, 114, 138, 0.233);
+    -moz-box-shadow: 4px 14px 42px 3px rgba(43, 114, 138, 0.233);
   }
   .card-shadow {
-    box-shadow: 4px 18px 20px 3px rgba(17, 57, 70, 0.36);
-    -webkit-box-shadow: 4px 18px 20px 3px rgba(17, 57, 70, 0.36);
-    -moz-box-shadow: 4px 18px 20px 3px rgba(17, 57, 70, 0.36);
+    box-shadow: 4px 18px 20px 3px rgba(43, 114, 138, 0.233);
+    -webkit-box-shadow: 4px 18px 20px 3px rgba(43, 114, 138, 0.233);
+    -moz-box-shadow: 4px 18px 20px 3px rgba(43, 114, 138, 0.233);
   }
 }
 
